@@ -1,0 +1,310 @@
+[
+    {
+        "id": "e014a6fc5dbdde74",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6bbca27ba36c5d63",
+        "type": "ibmiot in",
+        "z": "e014a6fc5dbdde74",
+        "authentication": "apiKey",
+        "apiKey": "f590ee0f8703514b",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "12345",
+        "applicationId": "",
+        "deviceType": "+",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 230,
+        "y": 220,
+        "wires": [
+            [
+                "c948e198e13c20a1"
+            ]
+        ]
+    },
+    {
+        "id": "a0e836121b27f72a",
+        "type": "ibmiot out",
+        "z": "e014a6fc5dbdde74",
+        "authentication": "apiKey",
+        "apiKey": "f590ee0f8703514b",
+        "outputType": "cmd",
+        "deviceId": "12345",
+        "deviceType": "relay",
+        "eventCommandType": "test",
+        "format": "String",
+        "data": "Data",
+        "qos": 0,
+        "name": "IBM IoT",
+        "service": "registered",
+        "x": 820,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "916381ee9c9d08ab",
+        "type": "ui_button",
+        "z": "e014a6fc5dbdde74",
+        "name": "",
+        "group": "3b237663657b9e91",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ON",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "on",
+        "payloadType": "str",
+        "topic": "Data",
+        "topicType": "str",
+        "x": 230,
+        "y": 360,
+        "wires": [
+            [
+                "7c6eb53c908f599d",
+                "df6faeb5af70a95d"
+            ]
+        ]
+    },
+    {
+        "id": "707d51209a09c3c2",
+        "type": "ui_button",
+        "z": "e014a6fc5dbdde74",
+        "name": "",
+        "group": "3b237663657b9e91",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "off",
+        "payloadType": "str",
+        "topic": "Data",
+        "topicType": "str",
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "7c6eb53c908f599d",
+                "df6faeb5af70a95d"
+            ]
+        ]
+    },
+    {
+        "id": "c6f4e3239e19f84b",
+        "type": "inject",
+        "z": "e014a6fc5dbdde74",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 240,
+        "y": 120,
+        "wires": [
+            [
+                "7c6eb53c908f599d"
+            ]
+        ]
+    },
+    {
+        "id": "7c6eb53c908f599d",
+        "type": "debug",
+        "z": "e014a6fc5dbdde74",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c948e198e13c20a1",
+        "type": "function",
+        "z": "e014a6fc5dbdde74",
+        "name": "motorbill",
+        "func": "msg.payload = msg.payload.motorbill\nmsg.topic = \"motorbill\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 200,
+        "wires": [
+            [
+                "7c6eb53c908f599d",
+                "5a7b344800f2e3ca"
+            ]
+        ]
+    },
+    {
+        "id": "5a7b344800f2e3ca",
+        "type": "firebase-out",
+        "z": "e014a6fc5dbdde74",
+        "name": "",
+        "database": "a554dbfd22ed41be",
+        "path": "smartbridge/val/motorbill",
+        "pathType": "str",
+        "priority": 1,
+        "queryType": "set",
+        "x": 880,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "40499f1af5eef5c2",
+        "type": "firebase-in",
+        "z": "e014a6fc5dbdde74",
+        "name": "",
+        "constraint": {},
+        "database": "a554dbfd22ed41be",
+        "listenerType": "value",
+        "outputType": "string",
+        "path": "smartbridge/val/relay",
+        "useConstraint": false,
+        "x": 250,
+        "y": 520,
+        "wires": [
+            [
+                "69959d3fbd2b8992"
+            ]
+        ]
+    },
+    {
+        "id": "69959d3fbd2b8992",
+        "type": "function",
+        "z": "e014a6fc5dbdde74",
+        "name": "ON/OFF App",
+        "func": "msg.payload = msg.payload.slice(1,-1)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 480,
+        "wires": [
+            [
+                "a0e836121b27f72a"
+            ]
+        ]
+    },
+    {
+        "id": "1faec39b8dec6e7b",
+        "type": "firebase-out",
+        "z": "e014a6fc5dbdde74",
+        "name": "",
+        "database": "a554dbfd22ed41be",
+        "path": "smartbridge/val/relay",
+        "pathType": "str",
+        "priority": 1,
+        "queryType": "set",
+        "x": 870,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "df6faeb5af70a95d",
+        "type": "function",
+        "z": "e014a6fc5dbdde74",
+        "name": "ON/OFF",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "a0e836121b27f72a",
+                "1faec39b8dec6e7b",
+                "7c6eb53c908f599d"
+            ]
+        ]
+    },
+    {
+        "id": "f590ee0f8703514b",
+        "type": "ibmiot",
+        "name": "IBMiotapi",
+        "keepalive": "60",
+        "serverName": "",
+        "cleansession": true,
+        "appId": "",
+        "shared": false
+    },
+    {
+        "id": "3b237663657b9e91",
+        "type": "ui_group",
+        "name": "Motor",
+        "tab": "f60ec4c23071e1dd",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a554dbfd22ed41be",
+        "type": "database-config",
+        "name": "project",
+        "authType": "anonymous",
+        "claims": {},
+        "createUser": false,
+        "useClaims": false
+    },
+    {
+        "id": "f60ec4c23071e1dd",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
